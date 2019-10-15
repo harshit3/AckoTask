@@ -20,3 +20,27 @@
 .App-link {
   color: #09d3ac;
 }
+
+.breadcrumbs{
+  color: white;
+  background-color: rgb(71, 71, 71);
+  text-align: left;
+  border-bottom: 1px solid;
+  padding: 15px 0 10px 20px;
+}
+
+.details {
+  padding: 20px;
+}
+
+.mainmenu {
+  padding: 20px;
+  background-color: rgb(216, 216, 216);
+  height: 38vw;
+  border-right: 1px solid;
+  text-align: left;
+}
+
+.child {
+  padding-left: 10px;
+}

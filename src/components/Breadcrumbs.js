@@ -13,23 +13,21 @@ const Breadcrumbs = () => {
 
     return(
         breadcrumbs.map((each, ind) => {
-            const { id, title, subtitle, menu } = each;
             if(ind === breadcrumbs.length - 1) {
                 return (
-                    <span key={title}>{each.title}</span>
+                    <span key={each}>{each}</span>
                 )
             }
-            return <span key={title}>
+            return <span key={each}>
                 <Link 
                     to={{
-                        pathname: id?`/${id}/${title}`:'/',
-                        state: id?{ subtitle, menu }:{}
+                        pathname: each==='Home'?'/':`/${each}`
                     }}
                     onClick={() => removeFromBreadcrumbs(ind)}
                 >
-                    {each.title}
+                    {each}
                 </Link>
-                &nbsp;>&nbsp;
+                &nbsp;/&nbsp;
             </span>
         })
     )

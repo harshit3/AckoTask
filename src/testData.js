@@ -1,48 +1,53 @@
-export const inputData = [
-    {
-        'id': 1,
+export const inputData = {
+    'Home' : {
+        'title' : 'Home',
+        'menu' : [
+            'First',
+            'Second'
+        ]
+    },
+    'First' : {
         'title' : 'First',
         'subtitle' : 'SubFirst',
         'menu' : [
-            {
-                'id' : 11,
-                'title' : 'x',
-                'subtitle' : 'xsub',
-                'menu' : [
-                    {
-                        'id' : 111,
-                        'title' : 'xmenu1',
-                        'subtitle' : 'xmenu1'   
-                    },
-                    {
-                        'id' : 112,
-                        'title' : 'ymenu',
-                        'subtitle' : 'ymenu'    
-                    }    
-                ]
-            },
-            {
-                'id' : 12,
-                'title' : 'y',
-                'subtitle' : 'ysub'    
-            }
+            'First_x',
+            'First_y'
         ]
     },
-    {
-        'id': 2,
+    'First_x' : {
+        'title' : 'x',
+        'subtitle' : 'xsub',
+        'menu' : [
+            'First_x_xmenu1',
+            'First_x_ymenu'
+        ]
+    },
+    'First_x_xmenu1' : {
+        'title' : 'xmenu1',
+        'subtitle' : 'xmenu1'
+    },
+    'First_x_ymenu' : {
+        'title' : 'ymenu',
+        'subtitle' : 'ymenu'
+    },
+    'First_y' : {
+        'title' : 'y',
+        'subtitle' : 'ysub'    
+    },
+    'Second' : {
         'title' : 'Second',
         'subtitle' : 'SubSecond',
         'menu' : [
-            {
-                'id' : 21,
-                'title' : 'm',
-                'subtitle' : 'msub'
-            },
-            {
-                'id' : 22,
-                'title' : 'n',
-                'subtitle' : 'nsub'    
-            }
+            'Second_m',
+            'Second_n'
         ]
+    },
+    'Second_m' : {
+        'title' : 'm',
+        'subtitle' : 'msub'
+    },
+    'Second_n' : {
+        'title' : 'n',
+        'subtitle' : 'nsub'    
     }
-]
+}

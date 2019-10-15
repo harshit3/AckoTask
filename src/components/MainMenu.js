@@ -2,58 +2,62 @@ import React, { useContext } from 'react';
 import { inputData } from '../testData';
 import { Link } from 'react-router-dom';
 import { BreadcrumbsContext } from '../App';
+import '../App.css';
 
 const MainMenu = () => {
     const { breadcrumbs, updateBreadcrumbs } = useContext(BreadcrumbsContext);
 
-    const addToBreadCrumbs = (data) => {
-        const { title } = data;
+    const addToBreadCrumbs = (title) => {
+        let nextPath = `${breadcrumbs.slice(1).join('_')===''
+        ?''
+        :`${breadcrumbs.slice(1).join('_')}_`}${title}`
 
-        const mainMenus = breadcrumbs[0]['menu'];
-
-        const isAlreadyPresent = breadcrumbs.filter((item, ind) => {
-            const ifAnyMatchWithMain = mainMenus.filter(mainItem => mainItem.title===item.title).length===0?false:true;
-            
-            const ifLastBreadcrumbInMain = mainMenus.filter((item => item.title===breadcrumbs[breadcrumbs.length-1]['title'])).length===0?false:true
-            if(ifLastBreadcrumbInMain) {
-                return false
-            }else if(ifAnyMatchWithMain) {
-                return true
-            }else {
-                return false
-            }
-        }).length===0?false:true
-
-        if(!isAlreadyPresent) {
-            const findSubmenu = breadcrumbs[breadcrumbs.length-1]['menu'].filter(item => item.title === title)
-            if(findSubmenu.length === 0) {
-                updateBreadcrumbs(breadcrumbs => {
-                    breadcrumbs.pop()
-                    return [...breadcrumbs, { ...data }]
-                })
-            }else {
-                updateBreadcrumbs(breadcrumbs => {
-                    return [...breadcrumbs, { ...data }]
-                })
-            }
+        while(Object.keys(inputData).indexOf(nextPath) === -1) {
+            breadcrumbs.pop();
+            nextPath = `${breadcrumbs.slice(1).join('_')===''
+                ?''
+                :`${breadcrumbs.slice(1).join('_')}_`}${title}`
         }
+        updateBreadcrumbs([ ...breadcrumbs, title ])
+
     }
 
+    const findChildren = (menu) => {
+        if(!menu || menu.length===0)
+            return []
+        
+        return(
+            <div className='childlist'>
+                {menu.map(each => {
+                    const { title, menu } = inputData[each];
+                    return <div key={title} className='child'>
+                        <Link 
+                            to={`/${title}`}
+                            onClick={() => addToBreadCrumbs(title)}                
+                        >
+                            {title}
+                        </Link>
+                        {breadcrumbs.indexOf(title)!==-1 && findChildren(menu)}
+                    </div>                    
+                })}
+            </div>
+        )
+    }
+    
     return(
-        inputData.map(data => {
-            const { id, title, subtitle, menu = [] } = data;
-            return <div key={id} >
+        inputData['Home']['menu'].map(menuItem => {
+            const { title, menu } = inputData[menuItem];
+            return <div key={title} className='button'>
                 <Link
-                    to={{
-                        pathname: `/${id}/${title}`,
-                        state: {
-                            subtitle, menu
-                        }
-                    }}
-                    onClick={() => addToBreadCrumbs(data)}
+                    to={`/${title}`}
+                    onClick={() => addToBreadCrumbs(title)}
                 >
                     {title}
                 </Link>
+                <div className='child'>
+                    {breadcrumbs.indexOf(title)!==-1 && findChildren(menu)}
+                </div>
+                <hr />
             </div>
         })
     )

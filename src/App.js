@@ -5,20 +5,14 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Details from './components/Details';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import { inputData } from './testData';
 
 export const BreadcrumbsContext = React.createContext({})
 
 function App() {
-  const [ breadcrumbs, setBreadcrumbs ] = useState([
-    {
-      title: 'Home',
-      menu: inputData.map(data => ({title: data.title}))
-    }
-  ])
+  const [ breadcrumbs, setBreadcrumbs ] = useState(['Home'])
 
   return (
-    <div className="App">
+    <div className="App container-fluid">
       <BreadcrumbsContext.Provider
         value = {{
           breadcrumbs,
@@ -26,12 +20,20 @@ function App() {
         }}
       >
         <BrowserRouter>
-          <Breadcrumbs />
-          <div>-----------------------------------------------------</div>
-          <MainMenu />
-          <div>-----------------------------------------------------</div>
-          <Route path='/' component={Home}/>
-          <Route path='/:id/:title' component={Details}/>
+          <div className='row breadcrumbs'>
+            <div className='col-md-12'>
+              <Breadcrumbs />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-md-2 mainmenu'>
+              <MainMenu />
+            </div>
+            <div className='col-md-10 details'>
+              <Route exact path='/' component={Home}/>
+              <Route path='/:title' component={Details}/>
+            </div>
+          </div>
         </BrowserRouter>
       </BreadcrumbsContext.Provider>
     </div>
